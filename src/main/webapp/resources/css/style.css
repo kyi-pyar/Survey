@@ -1,0 +1,53 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+	line-height: 40px;
+	font-family: 'Quicksand', sans-serif;
+
+}
+nav
+{
+	background-color: skyblue;
+	height: 80px;
+	width: 100%;
+}
+nav .logo{
+	line-height: 80px;
+	padding: 20px;
+	font-size: 40px;
+}
+nav ul{
+	float: right;
+	padding-right: 30px;
+	list-style: none;
+}
+nav ul li{
+	display: inline-block;
+	line-height: 80px;
+	font-size: 30px;
+	margin-right: 30px;
+}
+nav ul li a{
+color: white;
+text-decoration: none;
+}
+a:hover{
+	color: gray;
+}
+body{
+	background: silver;	
+}
+.middle{
+	padding: 10px;	
+	background: white;
+	border-radius: 5px;
+	position: fixed;
+	margin-top: 20%;
+	margin-left: 50%;
+	transform: translate(-50%,-50%);
+	
+}
+.error{
+	color: red;
+}
