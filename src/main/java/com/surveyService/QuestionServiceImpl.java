@@ -8,9 +8,8 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	public int get_Que_start(int page, int total) {
-		int start=(total-(page*NUM_QUE_PER_PAGE));
-		return (start<=0)?0:start;
-		
+		int start=(total-(page*NUM_QUE_PER_PAGE));//-2
+		return (start<=0)?0:start;		
 	}
 
 	public int get_Que_end(int page, int total) {

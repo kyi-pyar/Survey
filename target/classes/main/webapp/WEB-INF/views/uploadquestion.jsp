@@ -19,7 +19,7 @@
 	</form:form>
 	</c:when>
 	<c:otherwise>
-	<form:form modelAttribute="que"  action="uploadQue">
+	<form:form modelAttribute="que"  action="saveQue">
 	<form:hidden path="question_id"/>
 	<form:input path="upload_title"  placeholder="Enter title"/>	<br>
 	<form:textarea path="upload_Question" placeholder="Enter Question" rows="7" cols="30"/><br>

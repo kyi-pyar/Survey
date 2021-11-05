@@ -101,4 +101,22 @@ public class QuestionDaoImpl implements QuestionDao {
 		
 	}
 
+	public QuestionJoinCName getQueCNamebyId(int qid) {
+		String sql="SELECT question.*, customer.name FROM question, customer WHERE question.question_id=? and question.uploader=customer.id ";
+		return template.queryForObject(sql, new Object[]{qid}, new RowMapper<QuestionJoinCName>(){
+			public QuestionJoinCName mapRow(ResultSet rs, int arg1) throws SQLException {			
+				QuestionJoinCName qn=new QuestionJoinCName();
+				Question q=new Question();
+				q.setQuestion_id(rs.getInt(1));					
+				q.setUpload_Question(rs.getString(4));	
+				q.setUpload_date(rs.getDate(2));
+				qn.setQue(q);
+				qn.setCname(rs.getString(6));
+				return qn;
+				
+			}
+			
+		});
+	}
+
 }

@@ -19,6 +19,10 @@
 	Title . ${all.que.upload_title }<br>
 	About . ${all.que.upload_Question }<br>
 	posted on ${all.que.upload_date } by ${all.cname }<br>	
+	<c:if test="${sessionScope.user ne null }">
+	<a href="reply?q_id=${all.que.question_id}">reply</a>
+	<a href="showreply?q_id=${all.que.question_id}">show reply</a>
+	</c:if>
 	</li>	
 	</c:forEach>
 	</ol>	

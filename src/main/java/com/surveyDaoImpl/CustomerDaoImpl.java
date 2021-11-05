@@ -105,6 +105,23 @@ public class CustomerDaoImpl implements CustomerDao{
 	}
 
 
+	public void saveProfilePic(int id, String name) {
+		String sql="UPDATE `customer` SET `profile_pic`=? WHERE id=?";
+		template.update(sql, name, id);
+		
+	}
+
+
+	public Customer getCustomer(int id) {		
+		String sql="select * from customer where id=?";
+		try{
+		return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class) );
+		}catch(RuntimeException e){
+			return null;
+		}
+	}
+
+
 	
 
 

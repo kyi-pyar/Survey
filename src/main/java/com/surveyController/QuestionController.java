@@ -44,6 +44,7 @@ public class QuestionController {
 		que.setUploader(cc.getId());
 		que.setUpload_date(Date.valueOf(LocalDate.now()) );	
 		que.setQuestion_id(questiondao.saveQuestion(que));		
+		
 		List<Question> questions=questiondao.getQuestionsByEach(cc.getId());
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("showAllQuebyEach");
@@ -94,8 +95,7 @@ public class QuestionController {
 		
 		int pages=questionService.page_no_all_que(questionCount);		
 		int start=questionService.get_Que_start(p_no, questionCount);	
-		int end=questionService.get_Que_end(p_no, questionCount);
-		System.out.println(start+":"+end);
+		int end=questionService.get_Que_end(p_no, questionCount);		
 		List<QuestionJoinCName> questions=questiondao.getQuestions(start, end);		
 		mv.setViewName("showAllQue");
 		mv.addObject("questions", questions);

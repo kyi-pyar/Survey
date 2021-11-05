@@ -13,5 +13,7 @@ public interface QuestionDao {
 	public int updateQuestion(Question que);
 	public List<QuestionJoinCName> getQuestions(int start, int end); 
 	public int questionCount();
+	public QuestionJoinCName getQueCNamebyId (int qid);
+	
 
 }

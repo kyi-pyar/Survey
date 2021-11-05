@@ -2,9 +2,16 @@ package com.surveyController;
 
 
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,11 +22,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import com.Entity.Customer;
-import com.Entity.Role;
 import com.Exception.SurveyException;
 import com.surveyDao.CustomerDao;
 
@@ -27,6 +33,11 @@ import com.surveyDao.CustomerDao;
 public class CustomerController {
 	@Autowired
 	CustomerDao customerDao;
+	
+	//crud
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	@RequestMapping("/savecutomer")	
 	public String saveCustomer(@Valid @ModelAttribute Customer customer, BindingResult result, HttpSession session){
@@ -103,5 +114,48 @@ public class CustomerController {
 		mv.setViewName("all_user");
 		mv.addObject("customers", aa);
 		return mv;
+	}
+	
+	@RequestMapping("/uploadPhoto")
+	public String uploadPhoto(){
+		return "uploadPhoto";
+	}
+	
+	@RequestMapping(value="/uploadFile", method=RequestMethod.POST)
+	public String uploadFile(@RequestParam("photo") CommonsMultipartFile file, HttpSession session) throws IOException{
+		String source=("resources"+File.separator+"img");	
+		String path = servletContext.getRealPath("/") + source ;
+		String fname=file.getOriginalFilename();
+		String fullpath= path+ File.separator+ fname;
+		System.out.println("full path: "+fullpath);		
+		byte[] b=file.getBytes();
+		BufferedOutputStream stream=new BufferedOutputStream( new FileOutputStream(new File(fullpath)));
+		stream.write(b);
+		stream.flush();
+		stream.close();
+		System.out.println("file wrote");
+		Customer c=(Customer) session.getAttribute("user");
+		customerDao.saveProfilePic(c.getId(), fname);		
+		session.setAttribute("user",customerDao.getCustomer(c.getId()) );		
+		return "redirect:profile";
+		
+	}
+	
+	@RequestMapping("/download_photo")
+	public String download(HttpServletResponse response, @RequestParam("photo")String photo) throws IOException{
+		PrintWriter writer=response.getWriter();
+		String source="resources"+File.separator+"img";	
+		String path = servletContext.getRealPath("/") + source ;
+		response.setContentType("APPLICATION/OCTET-STREAM");
+		response.setHeader("Content-Disposition", "attachment; filename=" + photo );
+		System.out.println(path+photo);
+		FileInputStream inputStream=new FileInputStream(path+File.separator+photo);
+		int i;
+		while((i=inputStream.read())!=-1){
+			writer.write(i);
+		}
+		inputStream.close();
+		writer.close();		
+		return "profile";
 	}
 }

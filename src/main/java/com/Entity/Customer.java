@@ -13,17 +13,32 @@ public class Customer {
 	@Email(message="email format is wrong.")
 	String email;
 	String role;	
+	
+	String profile_pic;
+	
 	public Customer() {
 		super();
 	}
-	public Customer(int id, String name, String password, String email, String role) {
+	
+	public Customer(int id, String name, String password, String email, String role, String profile_pic) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.role = role;
+		this.profile_pic = profile_pic;
 	}
+	
+
+	public String getProfile_pic() {
+		return profile_pic;
+	}
+
+	public void setProfile_pic(String profile_pic) {
+		this.profile_pic = profile_pic;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -54,10 +69,12 @@ public class Customer {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", role="
-				+ role + "]";
+				+ role + ", profile_pic=" + profile_pic + "]";
 	}
+	
 
 }
