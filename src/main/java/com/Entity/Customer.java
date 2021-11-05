@@ -72,8 +72,13 @@ public class Customer {
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "Customer [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", role="
 				+ role + ", profile_pic=" + profile_pic + "]";
+=======
+		return "Customer [Id=" + id + ", Name=" + name + ", password=" + password + ", email=" + email + ", Role="
+				+ role + "]";
+>>>>>>> 5053e258919c9e50df12b930593ce0ef72e91d33
 	}
 	
 
